@@ -1,6 +1,5 @@
 from packages.models.Memory import Memory
 
-
 def optimized(pages, mem_size):
   memory = Memory(mem_size)
   page_faults = 0
