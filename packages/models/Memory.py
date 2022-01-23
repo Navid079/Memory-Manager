@@ -23,7 +23,7 @@ class Memory:
           else:
             string += f' {history}' + ('*' if flag else '.')
         string += '|\n'
-      return string
+      return string[:-1]
 
   def get_page(self, page):
     for frame in self.frames:
