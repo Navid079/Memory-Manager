@@ -7,6 +7,9 @@ class Memory:
     self.time = 0
     self.pointer = 0
     self.frames = [Frame() for _ in range(size)]
+  
+  def __str__(self):
+    return '\n'.join(map(lambda frame: str(frame), self.frames))
 
   def get_page(self, page):
     for frame in self.frames:
@@ -35,3 +38,7 @@ class Memory:
   def insert_page(self, page, index):
     self.frames[index].set_page(page, self.time)
     self.time += 1
+
+  def finalize(self):
+    for frame in self.frames:
+      frame.finalize(self.time)
