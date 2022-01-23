@@ -12,8 +12,13 @@ class Memory:
       if frame.page is page:
         frame.reference(self.time)
         self.time += 1
-        return True
-    return False
+        return False
+    return True
+
+  def get_empty_frame(self):
+    for i, frame in enumerate(self.frames):
+      if frame.is_empty(): return i
+    return -1
 
   def insert_page(self, page, index):
     self.frames[index].set_page(page, self.time)
