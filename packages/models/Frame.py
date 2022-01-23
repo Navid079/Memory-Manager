@@ -9,11 +9,11 @@ class Frame:
     return '| ' + ' | '.join(self.history) + ' |'
 
   def set_page(self, page, time):
+    while len(self.history) < time:
+      self.history.append(self.page.label if self.page else 'E')
     self.page = page
     self.clock_flag = 1
     page.enter(time)
-    while len(self.history) < time + 1:
-      self.history.append(self.page.label if self.page else 'E')
 
   def reference(self, time):
     self.clock_flag = 1
@@ -32,5 +32,5 @@ class Frame:
     return self.page is None
 
   def finalize(self, time):
-     while len(self.history) < time + 1:
+     while len(self.history) < time:
       self.history.append(self.page.label if self.page else 'E')

@@ -9,6 +9,7 @@ class Memory:
     self.frames = [Frame() for _ in range(size)]
 
   def __str__(self):
+    self.finalize()
     return '\n'.join(map(lambda frame: str(frame), self.frames))
 
   def get_page(self, page):
