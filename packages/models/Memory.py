@@ -6,11 +6,24 @@ class Memory:
   def __init__(self, size):
     self.time = 0
     self.pointer = 0
+    self.pointer_history = []
     self.frames = [Frame() for _ in range(size)]
 
   def __str__(self):
-    self.finalize()
-    return '\n'.join(map(lambda frame: str(frame), self.frames))
+    if not self.pointer_history:
+      return '\n'.join(map(lambda frame: str(frame), self.frames))
+    else:
+      string = ''
+      for i, frame in enumerate(self.frames):
+        for j, history in enumerate(frame.history):
+          flag = frame.flag_history[j]
+          string += '|'
+          if self.pointer_history[j] == i:
+            string += f'>{history}' + ('*' if flag else '.')
+          else:
+            string += f' {history}' + ('*' if flag else '.')
+        string += '|\n'
+      return string
 
   def get_page(self, page):
     for frame in self.frames:
@@ -28,18 +41,23 @@ class Memory:
   def get_frame_on_pointer(self):
     frame = self.frames[self.pointer]
     if frame.is_empty():
-      return self.pointer
+      p = self.pointer
     elif frame.clock_flag == 1:
       frame.unset_clock_flag()
-      self.pointer = self.pointer + 1 if self.pointer < len(
-          self.frames) - 1 else 0
-      return -1
-    return self.pointer
+      p = -1
+    else:
+      p = self.pointer
+    self.pointer = self.pointer + 1 if self.pointer < len(
+        self.frames) - 1 else 0
+    return p
+
+  def pointer_stop(self):
+    self.pointer_history.append(self.pointer)
 
   def insert_page(self, page, index):
     self.frames[index].set_page(page, self.time)
     self.time += 1
 
-  def finalize(self):
+  def save_history(self):
     for frame in self.frames:
-      frame.finalize(self.time)
+      frame.save_history()

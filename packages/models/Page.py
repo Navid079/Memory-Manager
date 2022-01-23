@@ -9,6 +9,7 @@ class Page:
 
   def enter(self, time):
     self.entered = time
+    self.reference(time)
 
   def reference(self, time):
     self.referenced = time

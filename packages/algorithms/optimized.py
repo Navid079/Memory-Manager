@@ -24,5 +24,6 @@ def optimized(pages, mem_size):
             ref = frame.get_next_reference(memory.time)
             index = i
       memory.insert_page(needed_page, index)
+    memory.save_history()
   
   return memory, page_faults

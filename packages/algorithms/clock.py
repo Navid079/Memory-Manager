@@ -17,5 +17,8 @@ def clock(pages, mem_size):
       while index == -1:
         index = memory.get_frame_on_pointer()
       memory.insert_page(page, index)
+    memory.pointer_stop()
+    memory.save_history()
+
   
   return memory, page_faults

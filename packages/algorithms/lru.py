@@ -21,5 +21,6 @@ def lru(pages, mem_size):
             ref = frame.get_last_reference()
             index = i
       memory.insert_page(page, index)
+    memory.save_history()
   
   return memory, page_faults
