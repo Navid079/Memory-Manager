@@ -1,7 +1,7 @@
 from packages.models.Memory import Memory
 
 
-def optimized(pages, mem_size):
+def lru(pages, mem_size):
   memory = Memory(mem_size)
   page_faults = 0
   while True:
@@ -13,18 +13,12 @@ def optimized(pages, mem_size):
     if needed_page is None: break
     page_fault = memory.get_page(page)
     if page_fault:
-      page_faults += 1
       index = memory.get_empty_frame()
     if index == -1:
-      ref = 0
+      ref = -1
       for i, frame in enumerate(memory.frames):
-        if frame.get_next_reference() == -1:
-          index = i
-          break
-        if frame.get_next_reference() > ref:
-          ref = frame.get_next_reference()
+        if ref == -1 or frame.get_last_reference() < ref:
+          ref = frame.get_last_reference()
           index = i
     memory.insert_page(page)
   #print memory trace
-
-  return page_faults
