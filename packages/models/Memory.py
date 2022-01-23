@@ -7,7 +7,7 @@ class Memory:
     self.time = 0
     self.pointer = 0
     self.frames = [Frame() for _ in range(size)]
-  
+
   def __str__(self):
     return '\n'.join(map(lambda frame: str(frame), self.frames))
 
@@ -30,8 +30,8 @@ class Memory:
       return self.pointer
     elif frame.clock_flag == 1:
       frame.unset_clock_flag()
-      self.pointer = self.pointer + 1 if self.pointer < len(self.frames -
-                                                            1) else 0
+      self.pointer = self.pointer + 1 if self.pointer < len(
+          self.frames) - 1 else 0
       return -1
     return self.pointer
 

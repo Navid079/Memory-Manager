@@ -23,6 +23,6 @@ def optimized(pages, mem_size):
         if frame.get_next_reference() > ref:
           ref = frame.get_next_reference()
           index = i
-    memory.insert_page(page)
+    memory.insert_page(page, index)
   
   return memory, page_faults

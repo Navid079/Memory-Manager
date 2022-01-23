@@ -8,4 +8,4 @@ mem_o, flt_o = optimized(pages, mem_size)
 mem_l, flt_l = lru(pages, mem_size)
 mem_c, flt_c = clock(pages, mem_size)
 
-print(mem_o)
+# print(mem_o)
