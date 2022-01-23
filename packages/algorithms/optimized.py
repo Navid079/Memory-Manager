@@ -10,19 +10,19 @@ def optimized(pages, mem_size):
         needed_page = page
         break
     if needed_page is None: break
-    page_fault = memory.get_page(page)
+    page_fault = memory.get_page(needed_page)
     if page_fault:
       page_faults += 1
       index = memory.get_empty_frame()
-    if index == -1:
-      ref = 0
-      for i, frame in enumerate(memory.frames):
-        if frame.get_next_reference(memory.time) == -1:
-          index = i
-          break
-        if frame.get_next_reference(memory.time) > ref:
-          ref = frame.get_next_reference(memory.time)
-          index = i
-    memory.insert_page(page, index)
+      if index == -1:
+        ref = 0
+        for i, frame in enumerate(memory.frames):
+          if frame.get_next_reference(memory.time) == -1:
+            index = i
+            break
+          if frame.get_next_reference(memory.time) > ref:
+            ref = frame.get_next_reference(memory.time)
+            index = i
+      memory.insert_page(needed_page, index)
   
   return memory, page_faults

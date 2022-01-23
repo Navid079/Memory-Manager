@@ -9,3 +9,7 @@ mem_l, flt_l = lru(pages, mem_size)
 mem_c, flt_c = clock(pages, mem_size)
 
 print(mem_o)
+print()
+print(mem_l)
+print()
+print(mem_c)

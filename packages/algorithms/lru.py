@@ -14,12 +14,12 @@ def lru(pages, mem_size):
     if page_fault:
       page_faults += 1
       index = memory.get_empty_frame()
-    if index == -1:
-      ref = -1
-      for i, frame in enumerate(memory.frames):
-        if ref == -1 or frame.get_last_reference() < ref:
-          ref = frame.get_last_reference()
-          index = i
-    memory.insert_page(page, index)
+      if index == -1:
+        ref = -1
+        for i, frame in enumerate(memory.frames):
+          if ref == -1 or frame.get_last_reference() < ref:
+            ref = frame.get_last_reference()
+            index = i
+      memory.insert_page(page, index)
   
   return memory, page_faults
