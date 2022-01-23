@@ -25,8 +25,8 @@ class Frame:
   def get_last_reference(self):
     return self.page.referenced
 
-  def get_next_reference(self):
-    return self.page.next_reference
+  def get_next_reference(self, time):
+    return self.page.next_reference(time)
 
   def is_empty(self):
     return self.page is None

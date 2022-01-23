@@ -17,11 +17,11 @@ def optimized(pages, mem_size):
     if index == -1:
       ref = 0
       for i, frame in enumerate(memory.frames):
-        if frame.get_next_reference() == -1:
+        if frame.get_next_reference(memory.time) == -1:
           index = i
           break
-        if frame.get_next_reference() > ref:
-          ref = frame.get_next_reference()
+        if frame.get_next_reference(memory.time) > ref:
+          ref = frame.get_next_reference(memory.time)
           index = i
     memory.insert_page(page, index)
   
