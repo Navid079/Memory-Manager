@@ -1,6 +1,6 @@
 from packages.models.Memory import Memory
 
-def lru(pages, mem_size):
+def clock(pages, mem_size):
   memory = Memory(mem_size)
   page_faults = 0
   while True:
@@ -17,4 +17,5 @@ def lru(pages, mem_size):
     while index == -1:
       index = memory.get_frame_on_pointer()
     memory.insert_page(page)
-  #print memory trace
+  
+  return memory, page_faults
