@@ -8,10 +8,11 @@ class Memory:
     self.pointer = 0
     self.pointer_history = []
     self.frames = [Frame() for _ in range(size)]
+    self.faults = []
 
   def __str__(self):
     if not self.pointer_history:
-      return '\n'.join(map(lambda frame: str(frame), self.frames))
+      string =  '\n'.join(map(lambda frame: str(frame), self.frames)) + '\n'
     else:
       string = ''
       for i, frame in enumerate(self.frames):
@@ -23,14 +24,18 @@ class Memory:
           else:
             string += f' {history}' + ('*' if flag else '.')
         string += '|\n'
-      return string[:-1]
+    for f in self.faults:
+        string += '  f ' if f else '    '
+    return string
 
   def get_page(self, page):
     for frame in self.frames:
       if frame.page is page:
         frame.reference(self.time)
         self.time += 1
+        self.faults.append(False)
         return False
+    self.faults.append(True)
     return True
 
   def get_empty_frame(self):
