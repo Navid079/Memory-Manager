@@ -38,15 +38,18 @@ class Memory:
       if frame.is_empty(): return i
     return -1
 
-  def get_frame_on_pointer(self):
-    frame = self.frames[self.pointer]
-    if frame.is_empty():
+  def get_frame_on_pointer(self, check_flag = True):
+    if not check_flag:
       p = self.pointer
-    elif frame.clock_flag == 1:
-      frame.unset_clock_flag()
-      p = -1
     else:
-      p = self.pointer
+      frame = self.frames[self.pointer]
+      if frame.is_empty():
+        p = self.pointer
+      elif frame.clock_flag == 1:
+        frame.unset_clock_flag()
+        p = -1
+      else:
+        p = self.pointer
     self.pointer = self.pointer + 1 if self.pointer < len(
         self.frames) - 1 else 0
     return p
